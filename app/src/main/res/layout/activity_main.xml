@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textAlignment="center"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/welcomeMsg"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="67dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="EasyPay"
+        android:textAlignment="center"
+        android:textColor="#FF5722"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="100dp"
+        android:width="320dp"
+        android:ems="10"
+        android:fontFamily="@font/roboto"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeMsg"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="100dp"
+        android:width="320dp"
+        android:ems="10"
+        android:fontFamily="@font/roboto"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <CheckBox
+        android:id="@+id/UserAgreement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="153dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="164dp"
+        android:checked="false"
+        android:fontFamily="@font/roboto"
+        android:text="I have read and agree the terms."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="56dp"
+        android:backgroundTint="#FF5722"
+        android:fontFamily="@font/roboto"
+        android:onClick="onClickUserType"
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserAgreement"
+        app:shapeAppearanceOverlay="@style/rounded_button" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="106dp"
+        android:entries="@array/UserType"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUp"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/spinnerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="162dp"
+        android:background="#F44336"
+        android:onClick="onClickUserType"
+        android:text="Submit"
+        app:backgroundTint="#F44336"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/signUp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="55dp"
+        android:backgroundTint="#FF5722"
+        android:fontFamily="@font/roboto"
+        android:text="SignUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        app:shapeAppearanceOverlay="@style/rounded_button" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

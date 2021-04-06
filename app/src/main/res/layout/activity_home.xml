@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#FFFFFF"
+    tools:context=".HomeActivity">
+
+    <TextView
+        android:id="@+id/text_acc_balance"
+        android:layout_width="201dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginEnd="10dp"
+        android:text="Account balance: "
+        android:textColor="#FF5722"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/text_acc_balance_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_acc_balance_value"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginEnd="27dp"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_acc_balance"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/topup_button"
+        android:layout_width="139dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="139dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="140dp"
+        android:backgroundTint="#FF5722"
+        android:text="Top Up"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_acc_balance" />
+
+    <Button
+        android:id="@+id/payButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="20dp"
+        android:text="Pay"
+        app:layout_constraintEnd_toStartOf="@+id/receiveButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topup_button" />
+
+    <Button
+        android:id="@+id/receiveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="68dp"
+        android:text="Receive"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/payButton"
+        app:layout_constraintTop_toBottomOf="@+id/topup_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>

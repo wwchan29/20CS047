@@ -5,19 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.mynewapp.HomeActivity2;
 import com.example.mynewapp.R;
 import com.example.mynewapp.TopUp;
-import com.example.mynewapp.TopUpActivity;
 import com.example.mynewapp.TopUpHistoryAdapter;
 import com.example.mynewapp.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,9 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 
 public class TopUpHistoryFragment extends Fragment {
 
@@ -63,6 +56,8 @@ public class TopUpHistoryFragment extends Fragment {
                 if(documentSnapshot.exists()){
                     User currentUser = documentSnapshot.toObject(User.class);
                     topUpList = currentUser.getListOfTopUp();
+
+                    //sort the list by payment date and time, with the latest display on top
                     Collections.reverse(topUpList);
 
                     adapter = new TopUpHistoryAdapter(getContext(), R.layout.list_topup_history, topUpList);

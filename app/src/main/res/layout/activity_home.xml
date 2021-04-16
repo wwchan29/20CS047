@@ -7,70 +7,96 @@
     android:backgroundTint="#FFFFFF"
     tools:context=".HomeActivity">
 
-    <TextView
-        android:id="@+id/text_acc_balance"
-        android:layout_width="201dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="107dp"
-        android:layout_marginEnd="10dp"
-        android:text="Account balance: "
-        android:textColor="#FF5722"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/text_acc_balance_value"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_acc_balance_value"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="107dp"
-        android:layout_marginEnd="27dp"
-        android:textColor="@color/black"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_acc_balance"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/topup_button"
-        android:layout_width="139dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="139dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="140dp"
-        android:backgroundTint="#FF5722"
-        android:text="Top Up"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        app:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="152dp"
+        android:backgroundTint="#FFFFFF"
+        android:drawableTop="@drawable/ic_round_top_up_orange"
+        android:elevation="0dp"
+        android:fontFamily="@font/roboto"
+        android:text="Top up"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_acc_balance" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_balance" />
 
     <Button
         android:id="@+id/payButton"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="156dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="152dp"
+        android:backgroundTint="#FFFFFF"
+        android:drawableTop="@drawable/ic_payment"
+        android:elevation="0dp"
+        android:fontFamily="@font/roboto"
         android:text="Pay"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/receiveButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topup_button" />
+        app:layout_constraintStart_toEndOf="@+id/topup_button"
+        app:layout_constraintTop_toBottomOf="@+id/layout_balance" />
 
     <Button
         android:id="@+id/receiveButton"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="156dp"
-        android:layout_marginEnd="68dp"
+        android:layout_marginTop="152dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#FFFFFF"
+        android:drawableTop="@drawable/ic_receive_button"
+        android:elevation="0dp"
+        android:fontFamily="@font/roboto"
         android:text="Receive"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/payButton"
-        app:layout_constraintTop_toBottomOf="@+id/topup_button" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_balance" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_balance"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#FD845E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_acc_balance_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_acc_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/roboto"
+            android:text="Account balance"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

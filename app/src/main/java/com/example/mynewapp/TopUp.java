@@ -4,19 +4,19 @@ import java.util.Date;
 
 public class TopUp {
 
-    private int topUpAmount;
+    private double topUpAmount;
     private Date topUpDate;
 
     public TopUp(){
-
+        // A constructor with no argument is needed so that the firebase fireStore can deserialize the TopUp object correctly
     }
 
-    public TopUp(int topUpAmount, Date topUpDate){
+    public TopUp(double topUpAmount, Date topUpDate){
         this.topUpAmount = topUpAmount;
         this.topUpDate = topUpDate;
     }
 
-    public int getTopUpAmount(){
+    public double getTopUpAmount(){
         return topUpAmount;
     }
 

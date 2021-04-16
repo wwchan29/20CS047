@@ -27,7 +27,7 @@ public class TopUpHistoryAdapter extends ArrayAdapter<TopUp> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         TopUp topUp = getItem(position);
         Date topUpDate = topUp.getTopUpDate();
-        int topUpAmount = topUp.getTopUpAmount();
+        double topUpAmount = topUp.getTopUpAmount();
 
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_topup_history, parent, false);

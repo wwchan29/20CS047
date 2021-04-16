@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.mynewapp.ReceivePaymentQrActivity;
 import com.example.mynewapp.TopUpActivity;
+import com.example.mynewapp.User;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,7 +45,9 @@ public class HomeFragment extends Fragment {
     private static final String TABLE_USER = "User";
     private static final String FIELD_BALANCE = "balance";
     private String userID;
-    private int currentBalance;
+
+    private User currentUser;
+    private double currentBalance;
 
     private String decodedInformation;
     private String qrCodeTimestamp;
@@ -118,8 +121,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
-                    currentBalance = documentSnapshot.getLong(FIELD_BALANCE).intValue();
-                    String balance = String.valueOf(currentBalance);
+                    User currentUser = documentSnapshot.toObject(User.class);
+                    currentBalance = currentUser.getBalance();
+                    String balance = String.format("%.2f", currentBalance);
+                    balance = "$" + balance;
 
                     text_balance.setText(balance);
                 }
@@ -147,7 +152,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 IntentIntegrator integrator = new IntentIntegrator(getActivity());
                 integrator.setPrompt("Scan a QR code");
-                integrator.setOrientationLocked(false);
+                integrator.setOrientationLocked(true);
                 integrator.initiateScan();
             }
         });

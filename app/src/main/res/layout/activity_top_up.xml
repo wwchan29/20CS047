@@ -6,68 +6,67 @@
     android:layout_height="match_parent"
     tools:context=".TopUpActivity">
 
-    <EditText
-        android:id="@+id/topup_amount"
-        android:layout_width="232dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="89dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="90dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_topup" />
-
     <TextView
         android:id="@+id/text_topup"
-        android:layout_width="307dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="83dp"
-        android:layout_marginEnd="51dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
         android:gravity="center"
         android:text="Enter the amount to Top Up:"
         android:textColor="#FF5722"
         android:textSize="23dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/roboto_bold"
+        android:letterSpacing="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/clear"
+    <EditText
+        android:id="@+id/topup_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="91dp"
-        android:layout_marginTop="35dp"
-        android:text="Clear"
-        app:backgroundTint="#A39A9A"
+        android:layout_marginTop="22dp"
+        android:hint="0.00"
+        android:inputType="numberDecimal"
+        android:maxLength="8"
+        android:textSize="35dp"
+        android:fontFamily="@font/roboto"
+        android:letterSpacing="0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topup_amount" />
+        app:layout_constraintTop_toBottomOf="@+id/text_topup" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/roboto_bold"
+        android:letterSpacing="0"
+        android:text="Clear"
+        android:textAllCaps="false"
+        android:textSize="18dp"
+        app:backgroundTint="#A39A9A"
+        app:layout_constraintEnd_toStartOf="@+id/confirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topup_amount"
+        app:shapeAppearanceOverlay="@style/rounded_button" />
 
     <Button
         android:id="@+id/confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="82dp"
+        android:fontFamily="@font/roboto_bold"
+        android:letterSpacing="0"
         android:text="Confirm"
+        android:textAllCaps="false"
+        android:textSize="18dp"
         app:backgroundTint="#FF5722"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/clear"
-        app:layout_constraintTop_toBottomOf="@+id/topup_amount" />
+        app:layout_constraintTop_toBottomOf="@+id/topup_amount"
+        app:shapeAppearanceOverlay="@style/rounded_button" />
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="82dp"
-        android:layout_marginEnd="165dp"
-        android:text="Back"
-        app:backgroundTint="#00BCD4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clear" />
 </androidx.constraintlayout.widget.ConstraintLayout>

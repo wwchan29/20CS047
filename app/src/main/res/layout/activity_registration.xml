@@ -10,39 +10,34 @@
         android:id="@+id/text_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
         android:layout_marginTop="92dp"
-        android:layout_marginEnd="181dp"
         android:fontFamily="@font/roboto_bold"
         android:text="REGISTRATION"
         android:textColor="#FF5722"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextNickname"
-        android:layout_width="320dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginStart="45dp"
         android:layout_marginTop="59dp"
-        android:layout_marginEnd="46dp"
         android:ems="10"
         android:hint="Nickname"
         android:inputType="text"
+        android:maxLength="16"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_register" />
 
     <EditText
         android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="320dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="101dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Email Address"
         android:inputType="textEmailAddress"
@@ -52,44 +47,31 @@
 
     <EditText
         android:id="@+id/editTextTextPassword"
-        android:layout_width="320dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginStart="103dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="98dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
 
     <Button
         android:id="@+id/submit_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="92dp"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="22dp"
         android:fontFamily="@font/roboto"
+        android:letterSpacing="0"
         android:text="Submit"
+        android:textAllCaps="false"
+        android:textSize="17dp"
+        android:textStyle="bold"
         app:backgroundTint="#FF5722"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/back_to_login"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
-
-    <Button
-        android:id="@+id/back_to_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="86dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/roboto"
-        android:text="Back"
-        app:backgroundTint="#FF5722"
-        app:layout_constraintEnd_toStartOf="@+id/submit_register"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        app:shapeAppearanceOverlay="@style/rounded_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

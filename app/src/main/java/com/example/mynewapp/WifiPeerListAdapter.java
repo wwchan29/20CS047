@@ -43,7 +43,7 @@ public class WifiPeerListAdapter extends RecyclerView.Adapter<WifiPeerListAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.list_payment_history, viewGroup, false);
+                .inflate(R.layout.list_peers, viewGroup, false);
 
         return new ViewHolder(view);
     }

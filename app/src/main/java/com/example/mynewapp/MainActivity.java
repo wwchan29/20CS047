@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.graphics.Color;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void loginOnClickListener(){
         Button login = findViewById(R.id.loginButton);
-        EditText email = findViewById(R.id.username);
-        EditText password = findViewById(R.id.password);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,45 +55,22 @@ public class MainActivity extends AppCompatActivity {
                 String loginEmail = email.getText().toString();
                 String loginPassword = password.getText().toString();
 
-                AlertDialog.Builder loginAlert = new AlertDialog.Builder(MainActivity.this);
-                loginAlert.setCancelable(false)
-                        .setMessage("Are you sure to login?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if(checkEmptyUserNameAndPw()){
-                                    Toast.makeText(MainActivity.this, "Please input the correct Username and Password", Toast.LENGTH_SHORT).show();
+                if(checkEmptyUserNameAndPw()){
+                    Toast.makeText(MainActivity.this, "Please input the correct Username and Password", Toast.LENGTH_SHORT).show();
+                }else{
+                    auth.signInWithEmailAndPassword(loginEmail, loginPassword)
+                            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        loadingMessage = new ProgressDialog(MainActivity.this);
+                                        new loginTask(MainActivity.this, loadingMessage).execute();
+                                    }else{
+                                        alertLoginFailedDialog();
+                                    }
                                 }
-
-//                                if(!checkUserAgreement()){
-//                                    Toast.makeText(MainActivity.this, "Please agree the terms to continue", Toast.LENGTH_SHORT).show();
-//                                }
-
-                                if(!checkEmptyUserNameAndPw()) {
-                                    auth.signInWithEmailAndPassword(loginEmail, loginPassword)
-                                            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                                    if(task.isSuccessful()){
-                                                        loadingMessage = new ProgressDialog(MainActivity.this);
-                                                        new loginTask().execute();
-                                                    }else{
-                                                        Toast.makeText(MainActivity.this, "Invalid Email address or password", Toast.LENGTH_SHORT ).show();
-                                                    }
-                                                }
-                                            });
-                                }
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                AlertDialog loginDialog = loginAlert.create();
-                loginDialog.show();
-
+                            });
+                }
             }
         });
 
@@ -118,16 +94,33 @@ public class MainActivity extends AppCompatActivity {
         boolean isEmpty = false;
 
         if(TextUtils.isEmpty(username.getText().toString())){
-            username.setError("Username cannot be empty");
+            username.setError("Please enter your Email Address");
             isEmpty = true;
         }
 
         if(TextUtils.isEmpty(password.getText().toString())){
-            password.setError("Password cannot be empty");
+            password.setError("Please enter your Password");
             isEmpty = true;
         }
 
         return isEmpty;
+    }
+
+    public void alertLoginFailedDialog(){
+        AlertDialog.Builder loginAlert = new AlertDialog.Builder(MainActivity.this);
+        loginAlert.setCancelable(false)
+                .setTitle("Login Failed")
+                .setMessage("Invalid Email Address or Password. Please try again.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog loginFailedDialog = loginAlert.create();
+        loginFailedDialog.show();
+        TextView dialogTitle = loginFailedDialog.findViewById(getResources().getIdentifier( "alertTitle", "id", this.getPackageName()));
+        dialogTitle.setTextColor(Color.parseColor("#FF5722"));
     }
 
     public Boolean checkUserAgreement(){
@@ -158,23 +151,6 @@ public class MainActivity extends AppCompatActivity {
     public void onClickUserType(View view){
         Spinner spinner = findViewById(R.id.spinner);
         String userType = spinner.getSelectedItem().toString();
-    }
-
-    private class loginTask extends AsyncTask<Void, Void, Void>
-    {
-        protected void onPreExecute() {
-            loadingMessage.show(MainActivity.this, "Login", "Loading..", false, false);
-        }
-        protected Void doInBackground(Void... JSONArray) {
-            Intent i = new Intent(MainActivity.this, HomeActivity2.class);
-            startActivity(i);
-            return null;
-        }
-
-        protected void onPostExecute(Void unused) {
-            //dismiss the progressdialog
-            loadingMessage.dismiss();
-        }
     }
 
     @Override

@@ -6,16 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ReceivePaymentQrActivity">
 
+    <TextView
+        android:id="@+id/qrcodeInstruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:fontFamily="@font/roboto"
+        android:text="Scan this QR Code on Payer's device"
+        android:textColor="#707070"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/qrcode"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="106dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qrcodeInstruction"
         app:srcCompat="?attr/actionBarDivider" />
 
     <Button
@@ -23,11 +35,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="153dp"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="153dp"
-        android:backgroundTint="#FF5722"
-        android:text="Refresh"
+        android:backgroundTint="#FF6838"
+        android:text="Refresh QR Code"
+        android:textAllCaps="false"
+        android:letterSpacing="0"
+        android:fontFamily="@font/roboto_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/qrcode" />
+        app:layout_constraintTop_toBottomOf="@+id/qrcode"
+        app:shapeAppearanceOverlay="@style/rounded_button"/>
+
+    <Button
+        android:id="@+id/button_receive_wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="14dp"
+        android:backgroundTint="#FF6838"
+        android:drawableRight="@drawable/ic_right"
+        android:fontFamily="@font/roboto_bold"
+        android:letterSpacing="0"
+        android:text="Proceed to connect payer by Wi-Fi Direct"
+        android:textAllCaps="false"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/refreshQrButton"
+        app:shapeAppearanceOverlay="@style/rounded_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

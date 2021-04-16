@@ -26,6 +26,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.sql.Timestamp;
+
 public class HomeActivity2 extends AppCompatActivity{
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -34,15 +36,16 @@ public class HomeActivity2 extends AppCompatActivity{
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser user;
     private static final String TABLE_USER = "User";
-    private static final String FIELD_BALANCE = "balance";
-    private static final String FIELD_NAME = "name";
     private String userID;
-    private int currentBalance;
-    private String name;
+    private double currentBalance;
+    private String nickName;
     private TextView text_balance;
     private TextView text_name;
     private TextView text_email;
     private String decodedInformation;
+    private String qrCodeTimestamp;
+    private long qrCodeDateTime;
+    private long currentDateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,35 +85,28 @@ public class HomeActivity2 extends AppCompatActivity{
 
         if(intentResult.getContents()!=null){
             decodedInformation = intentResult.getContents();
+            String[] arrOfDecodedInformation = decodedInformation.split("\\|");
 
-            Toast.makeText(this, decodedInformation, Toast.LENGTH_LONG).show();
-            Intent i = new Intent(this, PayPaymentWifiActivity.class);
-            i.putExtra("PaymentInformation", decodedInformation);
-            startActivity(i);
+            // Check the timestamp of the QR code to see if it is valid or expired
+            // If the QR code content consist more than or less than 2 parts, it is corrupted and invalid, else proceeds to the checking of timestamp
+            if(arrOfDecodedInformation.length == 2){
+                qrCodeTimestamp = arrOfDecodedInformation[1];
+                qrCodeDateTime = Long.parseLong(qrCodeTimestamp);
+                Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+                currentDateTime = currentTimestamp.getTime();
 
-//            String[] arrOfDecodedInformation = decodedInformation.split("\\|");
-//
-//            // Check the timestamp of the QR code to see if it is valid or expired
-//            // If the QR code content consist more than or less than 2 parts, it is corrupted and invalid, else proceeds to the checking of timestamp
-//            if(arrOfDecodedInformation.length == 2){
-//                qrCodeTimestamp = arrOfDecodedInformation[1];
-//                qrCodeDateTime = Long.parseLong(qrCodeTimestamp);
-//                Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-//                currentDateTime = currentTimestamp.getTime();
-//
-//                // Compare the timestamp on the QR code with the current time
-//                // If the time difference is <= 30 secs, proceeds the payment process, else alert the users that the QR code has expired
-//                if(currentDateTime - qrCodeDateTime >= 0 && currentDateTime - qrCodeDateTime<= 30000){
-//                    Toast.makeText(this, decodedInformation, Toast.LENGTH_LONG).show();
-//                    Intent i = new Intent(HomeActivity.this, PayPaymentWifiActivity.class);
-//                    i.putExtra("PaymentInformation", decodedInformation);
-//                    startActivity(i);
-//                }else{
-//                    Toast.makeText(this, "QR code expired. Please refresh the QR code.", Toast.LENGTH_LONG).show();
-//                }
-//            }else{
-//                Toast.makeText(this, "Invalid QR code", Toast.LENGTH_SHORT).show();
-//            }
+                // Compare the timestamp on the QR code with the current time
+                // If the time difference is <= 30 secs, proceeds the payment process, else alert the users that the QR code has expired
+                if(currentDateTime - qrCodeDateTime >= 0 && currentDateTime - qrCodeDateTime<= 30000){
+                    Intent i = new Intent(HomeActivity2.this, PayPaymentWifiActivity.class);
+                    i.putExtra("DecodedInformation", arrOfDecodedInformation[0]);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(this, "QR code expired. Please refresh the QR code.", Toast.LENGTH_LONG).show();
+                }
+            }else{
+                Toast.makeText(this, "Invalid QR code", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -120,7 +116,6 @@ public class HomeActivity2 extends AppCompatActivity{
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 
 
     @Override
@@ -139,10 +134,12 @@ public class HomeActivity2 extends AppCompatActivity{
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     if (documentSnapshot.exists()) {
-                        currentBalance = documentSnapshot.getLong(FIELD_BALANCE).intValue();
-                        String balance = String.valueOf(currentBalance);
+                        User currentUser = documentSnapshot.toObject(User.class);
+                        currentBalance = currentUser.getBalance();
+                        String balance = String.format("%.2f", currentBalance);
+                        balance = "$" + balance;
 
-                        text_balance.setText("Balance: " + balance);
+                        text_balance.setText(balance);
                     }
                 }
             });
@@ -161,9 +158,10 @@ public class HomeActivity2 extends AppCompatActivity{
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     if (documentSnapshot.exists()) {
-                        name = documentSnapshot.getString(FIELD_NAME);
+                        User currentUser = documentSnapshot.toObject(User.class);
+                        nickName = currentUser.getName();
 
-                        text_name.setText(name);
+                        text_name.setText(nickName);
                     }
                 }
             });

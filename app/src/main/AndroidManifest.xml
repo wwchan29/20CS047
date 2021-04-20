@@ -23,12 +23,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyNewApp">
         <activity
-            android:name=".HomeActivity2"
-            android:label="@string/title_activity_home2"
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MyNewApp.NoActionBar">
             <intent-filter>
-                <action android:name="com.example.mynewapp.HomeActivity2" />
+                <action android:name="com.example.mynewapp.HomeActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -37,7 +37,7 @@
             android:name=".PayPaymentWifiActivity"
             android:label="@string/activity_pay_payment_wifi"
             android:screenOrientation="portrait"
-            android:parentActivityName=".HomeActivity2">
+            android:parentActivityName=".HomeActivity">
             <intent-filter>
                 <action android:name="com.example.mynewapp.PayPaymentWifiActivity" />
 
@@ -48,7 +48,7 @@
             android:name=".ReceivePaymentQrActivity"
             android:label="@string/activity_receive_payment"
             android:screenOrientation="portrait"
-            android:parentActivityName=".HomeActivity2">
+            android:parentActivityName=".HomeActivity">
             <intent-filter>
                 <action android:name="com.example.mynewapp.ReceivePaymentQrActivity" />
 
@@ -59,18 +59,9 @@
             android:name=".TopUpActivity"
             android:label="@string/activity_top_up"
             android:screenOrientation="portrait"
-            android:parentActivityName=".HomeActivity2">
+            android:parentActivityName=".HomeActivity">
             <intent-filter>
                 <action android:name="com.example.mynewapp.TopUpActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".HomeActivity"
-            android:label="@string/activity_home">
-            <intent-filter>
-                <action android:name="com.example.mynewapp.HomeActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -87,31 +78,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PaymentHistoryActivity"
-            android:label="@string/activity_payment_history"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.example.mynewapp.PaymentHistoryActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ImageRadioActivity"
-            android:label="@string/activity_image_radio">
-            <intent-filter>
-                <action android:name="com.example.mynewapp.ImageRadioActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 

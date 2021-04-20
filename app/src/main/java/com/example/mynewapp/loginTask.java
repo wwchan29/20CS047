@@ -16,8 +16,9 @@ public class loginTask extends AsyncTask<Void, Void, Void> {
     protected void onPreExecute() {
         loadingMessage.show(mainActivity, "Login", "Loading..", false, false);
     }
+
     protected Void doInBackground(Void... JSONArray) {
-        Intent i = new Intent(mainActivity, HomeActivity2.class);
+        Intent i = new Intent(mainActivity, HomeActivity.class);
         mainActivity.startActivity(i);
         return null;
     }

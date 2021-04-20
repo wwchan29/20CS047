@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#FFFFFF"
-    tools:context=".HomeActivity">
+    android:backgroundTint="#FFFFFF">
 
     <Button
         android:id="@+id/topup_button"
@@ -68,7 +67,7 @@
         android:id="@+id/layout_balance"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#FD845E"
+        android:background="@color/theme_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

@@ -21,7 +21,6 @@ import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -32,14 +31,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import javax.crypto.SecretKey;
@@ -61,14 +52,6 @@ public class PayPaymentWifiActivity extends AppCompatActivity {
     private byte[] iv;
     private String role;
 
-    private FirebaseAuth auth;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseUser user;
-    private static final String TABLE_USER = "User";
-    private String userID;
-    private double currentBalance;
-    private String currentUserName;
-
     private TextView header;
     private TextView text_device_name;
     private EditText edittext_payment_amount;
@@ -76,7 +59,7 @@ public class PayPaymentWifiActivity extends AppCompatActivity {
     private Button returnHomeButton;
     Handler handler = new Handler();
     Runnable runnable;
-    int delay = 15000;
+    int delay = 10000;
 
 
     @Override
@@ -95,6 +78,7 @@ public class PayPaymentWifiActivity extends AppCompatActivity {
             key = (SecretKey) extras.get("Key");
             role = extras.getString("Role");
 
+            // Update the layout for receiver side
             if(role != null){
                 if(role.equals("Receiver")){
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -136,7 +120,6 @@ public class PayPaymentWifiActivity extends AppCompatActivity {
         channel = manager.initialize(this, getMainLooper(), null);
 
         paymentAmountChangedListener();
-
     }
 
     @Override
@@ -247,6 +230,8 @@ public class PayPaymentWifiActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
+        // Set the title color for the dialog
         AlertDialog InsufficientBalanceDialog = paymentAlert.create();
         InsufficientBalanceDialog.show();
         TextView dialogTitle = InsufficientBalanceDialog.findViewById(getResources().getIdentifier( "alertTitle", "id", PayPaymentWifiActivity.this.getPackageName()));
@@ -264,6 +249,27 @@ public class PayPaymentWifiActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
+        // Set the title color for the dialog
+        AlertDialog PaymentFailDialog = paymentFailAlert.create();
+        PaymentFailDialog.show();
+        TextView dialogTitle = PaymentFailDialog.findViewById(getResources().getIdentifier( "alertTitle", "id", PayPaymentWifiActivity.this.getPackageName()));
+        dialogTitle.setTextColor(Color.parseColor("#FF5722"));
+    }
+
+    public void alertPaymentFailByConnectionDialog(){
+        AlertDialog.Builder paymentFailAlert = new AlertDialog.Builder(PayPaymentWifiActivity.this);
+        paymentFailAlert.setCancelable(false)
+                .setTitle("Payment Failed")
+                .setMessage("Please ensure you have connected with the receiver by WiFi-Direct.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        // Set the title color for the dialog
         AlertDialog PaymentFailDialog = paymentFailAlert.create();
         PaymentFailDialog.show();
         TextView dialogTitle = PaymentFailDialog.findViewById(getResources().getIdentifier( "alertTitle", "id", PayPaymentWifiActivity.this.getPackageName()));
@@ -275,14 +281,11 @@ public class PayPaymentWifiActivity extends AppCompatActivity {
         returnHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(PayPaymentWifiActivity.this, HomeActivity2.class);
+                Intent i = new Intent(PayPaymentWifiActivity.this, HomeActivity.class);
                 startActivity(i);
                 finish();
             }
         });
     }
-
-
-
 
 }

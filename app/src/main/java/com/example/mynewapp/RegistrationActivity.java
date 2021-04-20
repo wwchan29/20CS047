@@ -44,9 +44,14 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_icon);
 
+        // Setup return button on action bar
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_icon);
+        }
+
+        // Listen for the click event of the "Submit" button
         submitOnClickListener();
     }
 
@@ -75,11 +80,12 @@ public class RegistrationActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validRegistrationInfo() == true) {
+                if (validRegistrationInfo()) {
                     String nicknameUsed = nickname.getText().toString();
                     String emailAddress = email.getText().toString();
                     String passwordUsed = password.getText().toString();
 
+                    // Call the createUserWithEmailAndPassword Api from Firebase Auth, with email address and password input by user as parameters
                     auth = FirebaseAuth.getInstance();
                     auth.createUserWithEmailAndPassword(emailAddress, passwordUsed)
                             .addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
@@ -91,8 +97,11 @@ public class RegistrationActivity extends AppCompatActivity {
                                         userID = user.getUid();
                                         listOfTopUp = new ArrayList<>();
                                         listOfPayment = new ArrayList<>();
+
+                                        // Initialize a new User object once the registration is success
                                         User newUser = new User(nicknameUsed, 0, listOfTopUp, listOfPayment);
 
+                                        //Store the new User object into the Firebase FireStore db and direct the user back to Login page
                                         db.collection(TABLE_USER).document(userID).set(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
@@ -107,8 +116,11 @@ public class RegistrationActivity extends AppCompatActivity {
                                         });
 
                                     } else{
+                                        // Handle exception cases for registration and pop up corresponding error dialog/message
+                                            // Exception(1): Email address/domain invalid
                                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException){
                                             alertInvalidEmailDialog();
+                                            // Exception(2): Email is already registered
                                         }else if (task.getException() instanceof FirebaseAuthUserCollisionException){
                                             alertEmailRegisteredDialog();
                                         }else{
@@ -128,6 +140,7 @@ public class RegistrationActivity extends AppCompatActivity {
         EditText password = findViewById(R.id.editTextTextPassword);
         boolean isValid = true;
 
+        // Validate if the registration info input by user is empty
         if(TextUtils.isEmpty(nickname.getText().toString())){
             nickname.setError("Nickname cannot be empty");
             isValid = false;
@@ -143,6 +156,7 @@ public class RegistrationActivity extends AppCompatActivity {
             isValid = false;
         }
 
+        // Validate the length of password chose by the user
         if(password.getText().length() < 6){
             password.setError("Password must be at least 6 characters long");
             isValid = false;
@@ -162,10 +176,14 @@ public class RegistrationActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
+        // Set the title color for the dialog
         AlertDialog EmailRegisteredDialog = loginAlert.create();
         EmailRegisteredDialog.show();
         TextView dialogTitle = EmailRegisteredDialog.findViewById(getResources().getIdentifier( "alertTitle", "id", this.getPackageName()));
-        dialogTitle.setTextColor(Color.parseColor("#FF5722"));
+        if(dialogTitle != null) {
+            dialogTitle.setTextColor(Color.parseColor("#FF5722"));
+        }
     }
 
     public void alertInvalidEmailDialog(){
@@ -179,10 +197,14 @@ public class RegistrationActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
+        // Set the title color for the dialog
         AlertDialog invalidEmailDialog = loginAlert.create();
         invalidEmailDialog.show();
         TextView dialogTitle = invalidEmailDialog.findViewById(getResources().getIdentifier( "alertTitle", "id", this.getPackageName()));
-        dialogTitle.setTextColor(Color.parseColor("#FF5722"));
+        if(dialogTitle != null) {
+            dialogTitle.setTextColor(Color.parseColor("#FF5722"));
+        }
     }
 
 

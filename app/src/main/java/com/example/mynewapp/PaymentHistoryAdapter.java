@@ -42,7 +42,6 @@ public class PaymentHistoryAdapter extends ArrayAdapter<Payment> {
         TextView timeView = convertView.findViewById(R.id.text_payment_time);
         TextView amountView = convertView.findViewById(R.id.text_payment_amount);
 
-
         SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String time = timeFormat.format(paymentDate);
         String amount = String.valueOf(paymentAmount);
@@ -51,12 +50,14 @@ public class PaymentHistoryAdapter extends ArrayAdapter<Payment> {
 
         if(paymentAction.equals("pay")){
             imageAction.setImageResource(R.drawable.ic_pay_to);
-            amountView.setText("- $" + amount);
+            String payAmount = "- $" + amount;
+            amountView.setText(payAmount);
             amountView.setTextColor(Color.parseColor("#FF0000"));
         }else if (paymentAction.equals("receive")){
             imageAction.setImageResource(R.drawable.ic_receive_from);
             imageAction.setScaleX(-1);
-            amountView.setText("+ $" + amount);
+            String receiveAmount = "+ $" + amount;
+            amountView.setText(receiveAmount);
             amountView.setTextColor(Color.parseColor("#32CD32"));
         }
 

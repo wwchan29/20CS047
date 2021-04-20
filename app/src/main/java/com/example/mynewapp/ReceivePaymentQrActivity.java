@@ -23,8 +23,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -43,15 +41,12 @@ public class ReceivePaymentQrActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
-
     private ImageView qrCodeView;
     private Button refreshQrCode;
     private Button buttonProceed;
-
     private String userId;
     private String currentDateTime;
     private String encodeInformation;
-
     private KeyGenerator aesKeyGenerator;
     private SecretKey key;
     private Cipher cipher;
@@ -113,12 +108,12 @@ public class ReceivePaymentQrActivity extends AppCompatActivity {
         System.out.println(encryptedUserIdInString);
 
         //Decryption of the userId
-        IvParameterSpec ivps = new IvParameterSpec(iv);
-        cipher.init(Cipher.DECRYPT_MODE, key, ivps);
-        byte[] bytedeUserId = Base64.getDecoder().decode(encryptedUserIdInString);
-        byte[] decryptedUserIdInByte = cipher.doFinal(bytedeUserId);
-        String decryptedUserIdInString = Base64.getEncoder().encodeToString(decryptedUserIdInByte);
-        System.out.println(decryptedUserIdInString);
+//        IvParameterSpec ivps = new IvParameterSpec(iv);
+//        cipher.init(Cipher.DECRYPT_MODE, key, ivps);
+//        byte[] bytedeUserId = Base64.getDecoder().decode(encryptedUserIdInString);
+//        byte[] decryptedUserIdInByte = cipher.doFinal(bytedeUserId);
+//        String decryptedUserIdInString = Base64.getEncoder().encodeToString(decryptedUserIdInByte);
+//        System.out.println(decryptedUserIdInString);
 
         QRCodeWriter writer = new QRCodeWriter();
         try {
@@ -132,7 +127,7 @@ public class ReceivePaymentQrActivity extends AppCompatActivity {
 
             for (int x = 0;x <300;x++){
                 for(int y= 0;y <300;y++){
-                    if(matrix.get(x,y) == true){
+                    if(matrix.get(x,y)){
                         bitmap.setPixel(x,y, Color.BLACK);
                     }else{
                         bitmap.setPixel(x,y, Color.WHITE);

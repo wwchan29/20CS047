@@ -1,4 +1,4 @@
-package com.example.mynewapp.NavigationMenu.home;
+package com.example.mynewapp.NavigationMenu;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.mynewapp.NavigationMenu.HomeViewModel;
 import com.example.mynewapp.PayPaymentWifiActivity;
 import com.example.mynewapp.R;
 
@@ -45,15 +46,8 @@ public class HomeFragment extends Fragment {
     private static final String TABLE_USER = "User";
     private static final String FIELD_BALANCE = "balance";
     private String userID;
-
-    private User currentUser;
     private double currentBalance;
-
     private String decodedInformation;
-    private String qrCodeTimestamp;
-    private long currentDateTime;
-    private long qrCodeDateTime;
-
     protected View homeView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -125,7 +119,6 @@ public class HomeFragment extends Fragment {
                     currentBalance = currentUser.getBalance();
                     String balance = String.format("%.2f", currentBalance);
                     balance = "$" + balance;
-
                     text_balance.setText(balance);
                 }
             }
@@ -171,9 +164,4 @@ public class HomeFragment extends Fragment {
         });
 
     }
-
-
-
-
-
 }

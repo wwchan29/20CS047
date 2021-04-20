@@ -46,7 +46,8 @@ public class TopUpHistoryAdapter extends ArrayAdapter<TopUp> {
 
         dateView.setText(date);
         timeView.setText(time);
-        amountView.setText("$" + amount);
+        String displayAmount = "$" + amount;
+        amountView.setText(displayAmount);
 
         return convertView;
     }

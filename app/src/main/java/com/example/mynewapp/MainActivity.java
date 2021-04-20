@@ -5,21 +5,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.graphics.Color;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +23,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Listen for the click event of the "Login" and "Sign Up" button
         registerOnClickListener();
         loginOnClickListener();
     }
@@ -58,11 +53,13 @@ public class MainActivity extends AppCompatActivity {
                 if(checkEmptyUserNameAndPw()){
                     Toast.makeText(MainActivity.this, "Please input the correct Username and Password", Toast.LENGTH_SHORT).show();
                 }else{
+                    // Call the signInWithEmailAndPassword Api by Firebase Auth, with email and password input by user as the parameters
                     auth.signInWithEmailAndPassword(loginEmail, loginPassword)
                             .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
+                                        // Execute the login process as background task and direct user to the Home Page of this application
                                         loadingMessage = new ProgressDialog(MainActivity.this);
                                         new loginTask(MainActivity.this, loadingMessage).execute();
                                     }else{
@@ -79,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     public void registerOnClickListener(){
         Button register = findViewById(R.id.signUp);
 
+        // Direct the user to the Registration Page when "Sign Up" button is clicked
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         EditText password = findViewById(R.id.password);
         boolean isEmpty = false;
 
+        //If email address or password input by the user is empty, display corresponding error message
         if(TextUtils.isEmpty(username.getText().toString())){
             username.setError("Please enter your Email Address");
             isEmpty = true;
@@ -107,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void alertLoginFailedDialog(){
+        // Prepare and show the Login failure dialog
         AlertDialog.Builder loginAlert = new AlertDialog.Builder(MainActivity.this);
         loginAlert.setCancelable(false)
                 .setTitle("Login Failed")
@@ -117,45 +117,19 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
+        // Set the title color for the dialog
         AlertDialog loginFailedDialog = loginAlert.create();
         loginFailedDialog.show();
         TextView dialogTitle = loginFailedDialog.findViewById(getResources().getIdentifier( "alertTitle", "id", this.getPackageName()));
-        dialogTitle.setTextColor(Color.parseColor("#FF5722"));
-    }
-
-    public Boolean checkUserAgreement(){
-        CheckBox userAgreement = findViewById(R.id.UserAgreement);
-        if (userAgreement.isChecked()){
-            return true;
-        }else{
-            return false;
+        if(dialogTitle != null) {
+            dialogTitle.setTextColor(Color.parseColor("#FF5722"));
         }
-    }
-
-    public void onSpinnerItemSelected(MainActivity view){
-        Spinner spinner = findViewById(R.id.spinner);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
-
-    public void onClickUserType(View view){
-        Spinner spinner = findViewById(R.id.spinner);
-        String userType = spinner.getSelectedItem().toString();
     }
 
     @Override
     public void onBackPressed() {
-        // Close the app and return to home screen
+        // Close the app and return to home screen when user press the Back button
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

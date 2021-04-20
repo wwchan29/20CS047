@@ -12,11 +12,6 @@ public class User {
         // A constructor with no argument is needed so that the firebase fireStore can deserialize the User object correctly
     }
 
-    public User(String name, double balance){
-        this.name = name;
-        this.balance = balance;
-    }
-
     public User(String name, double balance, ArrayList<TopUp> listOfTopUp, ArrayList<Payment> listOfPayment){
         this.name = name;
         this.balance = balance;

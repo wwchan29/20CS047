@@ -7,7 +7,6 @@ import androidx.core.app.NavUtils;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +24,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,7 +57,6 @@ public class TopUpActivity extends AppCompatActivity {
         clearOnClickListener();
     }
 
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -80,6 +76,7 @@ public class TopUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 topUpAmount = findViewById(R.id.topup_amount);
 
+                // Validate the top up amount input by the user
                 try {
                     amountTopUp = Double.valueOf(topUpAmount.getText().toString());
                     if(amountTopUp == 0){
@@ -96,8 +93,9 @@ public class TopUpActivity extends AppCompatActivity {
                     return;
                 }
 
-                AlertDialog.Builder loginAlert = new AlertDialog.Builder(TopUpActivity.this);
-                loginAlert.setCancelable(false)
+                // Display the confirmation dialog for the top up
+                AlertDialog.Builder confirmTopUpAlert = new AlertDialog.Builder(TopUpActivity.this);
+                confirmTopUpAlert.setCancelable(false)
                         .setTitle("Confirmation")
                         .setMessage("Are you sure to top up $" + String.format("%.2f", amountTopUp) + " to your wallet?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -154,10 +152,14 @@ public class TopUpActivity extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         });
-                AlertDialog loginFailedDialog = loginAlert.create();
-                loginFailedDialog.show();
-                TextView dialogTitle = loginFailedDialog.findViewById(getResources().getIdentifier( "alertTitle", "id", TopUpActivity.this.getPackageName()));
-                dialogTitle.setTextColor(Color.parseColor("#FF5722"));
+
+                // Set the title color for the dialog
+                AlertDialog confirmTopUpDialog = confirmTopUpAlert.create();
+                confirmTopUpDialog.show();
+                TextView dialogTitle = confirmTopUpDialog.findViewById(getResources().getIdentifier( "alertTitle", "id", TopUpActivity.this.getPackageName()));
+                if(dialogTitle != null) {
+                    dialogTitle.setTextColor(Color.parseColor("#FF5722"));
+                }
             }
         });
     }
@@ -209,56 +211,11 @@ public class TopUpActivity extends AppCompatActivity {
 //        dialogTitle.setTextColor(Color.parseColor("#FF5722"));
 //    }
 
-    public void updateBalance(){
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        userID = user.getUid();
-
-        db.collection(TABLE_USER).document(userID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()){
-                    // Get balance from current user and update it by adding the top-up amount
-                    User currentUser = documentSnapshot.toObject(User.class);
-                    currentBalance = currentUser.getBalance();
-                    newBalance = currentBalance + amountTopUp;
-                    currentUser.setBalance(newBalance);
-
-                    // Initialize a new top-up item with the top-up time and amount, update the top-up history of the current users by adding the item to the list
-                    currentListOfTopUp = currentUser.getListOfTopUp();
-                    TopUp topUpItem = new TopUp(amountTopUp, new Date());
-                    currentListOfTopUp.add(topUpItem);
-                    currentUser.setListOfTopUp(currentListOfTopUp);
-
-                    db.collection(TABLE_USER).document(userID).set(currentUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(TopUpActivity.this, "Top Up Success", Toast.LENGTH_SHORT ).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(TopUpActivity.this, "Top Up Fail", Toast.LENGTH_SHORT ).show();
-                        }
-                    });
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(TopUpActivity.this, "Top Up Fail", Toast.LENGTH_SHORT ).show();
-            }
-        });
-    }
-
     private void topUpAmountChangedListener(){
         topUpAmount = findViewById(R.id.topup_amount);
         topUpAmount.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -271,9 +228,7 @@ public class TopUpActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
     }
 

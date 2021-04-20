@@ -1,16 +1,16 @@
-package com.example.mynewapp.NavigationMenu.home;
+package com.example.mynewapp.NavigationMenu;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class TopUpHistoryViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public TopUpHistoryViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is top up history fragment");
     }
 
     public LiveData<String> getText() {

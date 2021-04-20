@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.mynewapp.NavigationMenu.home.HomeFragment"
+        android:name="com.example.mynewapp.NavigationMenu.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/activity_home" />
 
     <fragment
         android:id="@+id/nav_top_up_history"
-        android:name="com.example.mynewapp.NavigationMenu.TopUpHistory.TopUpHistoryFragment"
+        android:name="com.example.mynewapp.NavigationMenu.TopUpHistoryFragment"
         android:label="TopUpHistory"
         tools:layout="@layout/fragment_topup_history" />
 
     <fragment
         android:id="@+id/nav_payment_history"
-        android:name="com.example.mynewapp.NavigationMenu.PaymentHistory.PaymentHistoryFragment"
+        android:name="com.example.mynewapp.NavigationMenu.PaymentHistoryFragment"
         android:label="PaymentHistory"
         tools:layout="@layout/fragment_payment_history" />
 </navigation>

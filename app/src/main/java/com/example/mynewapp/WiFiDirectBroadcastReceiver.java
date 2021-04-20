@@ -1,15 +1,11 @@
 package com.example.mynewapp;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.IntentService;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.NetworkInfo;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
@@ -21,7 +17,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,7 +26,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +40,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -81,6 +74,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver implements Wi
     private static final String TABLE_USER = "User";
     private String userID;
 
+    private TextView text_transfer_amount;
     private TextView text_device_name;
     private EditText edittext_payment_amount;
     private TextView text_connection_status;
@@ -102,25 +96,18 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver implements Wi
 
             ArrayList<WifiP2pDevice> refreshedPeers = new ArrayList<>(peerList.getDeviceList());
 
+            text_transfer_amount = payPaymentWifiActivity.findViewById(R.id.text_transfer_amount);
             wifiPeerListView = payPaymentWifiActivity.findViewById(R.id.recyclerView);
             WifiPeerListAdapter adapter = new WifiPeerListAdapter(peers);
             wifiPeerListView.setAdapter(adapter);
-            adapter.setOnItemClickListener(onItemClickListener);
+            if(text_transfer_amount.getText().toString().equals("Transfer amount:")) {
+                adapter.setOnItemClickListener(onItemClickListener);
+            }
 
             if (!refreshedPeers.equals(peers)) {
                 peers.clear();
                 peers.addAll(refreshedPeers);
-
-                // If an AdapterView is backed by this data, notify it
-                // of the change. For instance, if you have a ListView of
-                // available peers, trigger an update.
                 adapter.notifyDataSetChanged();
-                // Perform any other updates needed based on the new list of
-                // peers connected to the Wi-Fi P2P network.
-            }
-
-            if (peers.size() == 0) {
-                //Toast.makeText(payPaymentWifiActivity, "No devices found", Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -315,17 +302,14 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver implements Wi
         wifiPeerListView = payPaymentWifiActivity.findViewById(R.id.recyclerView);
         WifiPeerListAdapter adapter = new WifiPeerListAdapter(peers);
         wifiPeerListView.setAdapter(adapter);
-        adapter.setOnItemClickListener(onItemClickListener);
+        if(text_transfer_amount.getText().toString().equals("Transfer amount:")) {
+            adapter.setOnItemClickListener(onItemClickListener);
+        }
 
         if (!refreshedPeers.equals(peers)) {
             peers.clear();
             peers.addAll(refreshedPeers);
             adapter.notifyDataSetChanged();
-            //Toast.makeText(payPaymentWifiActivity, peers.size() + "devices found", Toast.LENGTH_LONG).show();
-        }
-
-        if (peers.size() == 0) {
-            //Toast.makeText(payPaymentWifiActivity, "No devices found", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -334,10 +318,6 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver implements Wi
         public void onClick(View view) {
             WifiPeerListAdapter.ViewHolder viewHolder = (WifiPeerListAdapter.ViewHolder) view.getTag();
             connect(viewHolder.getAdapterPosition());
-
-            // viewHolder.getItemId();
-            // viewHolder.getItemViewType();
-            // viewHolder.itemView;
         }
     };
 
@@ -425,6 +405,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver implements Wi
         private DataInputStream inputStream;
         private DataOutputStream outputStream;
         private Cipher cipher;
+        private String decryptedUserIdInString;
 
         private FirebaseAuth auth;
         private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -487,20 +468,24 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver implements Wi
                 byte[] decryptedUserIdInByte = null;
                 try {
                     decryptedUserIdInByte = cipher.doFinal(byteDecryptedUserId);
+                    decryptedUserIdInString = Base64.getEncoder().encodeToString(decryptedUserIdInByte);
                 } catch (BadPaddingException e) {
                     // The encrypted message from client is not padded properly and is corrupted
                     outputStream = new DataOutputStream(client.getOutputStream());
-                    outputStream.writeUTF("Authentication Fail");
+                    String messageToClient = "Authentication Fail" + "|" + paymentUserName;
+                    outputStream.writeUTF(messageToClient);
                     e.printStackTrace();
+                    Log.e(PayPaymentWifiActivity.TAG, e.getMessage());
                 } catch (IllegalBlockSizeException e) {
                     // The length of The encrypted message from client does not match the block size of the cipher and is corrupted
                     outputStream = new DataOutputStream(client.getOutputStream());
-                    outputStream.writeUTF("Authentication Fail");
+                    String messageToClient = "Authentication Fail" + "|" + paymentUserName;
+                    outputStream.writeUTF(messageToClient);
                     e.printStackTrace();
+                    Log.e(PayPaymentWifiActivity.TAG, e.getMessage());
                 }
-                String decryptedUserIdInString = Base64.getEncoder().encodeToString(decryptedUserIdInByte);
-                Log.d(PayPaymentWifiActivity.TAG, "Decrypted string: " + decryptedUserIdInString);
-                if(decryptedUserIdInString.equals(userID)){
+
+                if(decryptedUserIdInString!= null &&decryptedUserIdInString.equals(userID)){
                     String messageToClient = "Authenticated" + "|" + paymentUserName;
 
                     outputStream = new DataOutputStream(client.getOutputStream());
@@ -627,10 +612,15 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver implements Wi
             this.messageToServer = messageToServer;
         }
 
+        @Override
+        protected void onPostExecute(Object o) {
+            authenticationLoadingMessage.dismiss();
+        }
+
+        @Override
         protected void onPreExecute() {
             payPaymentWifiActivity = (PayPaymentWifiActivity) context;
-            authenticationLoadingMessage = new ProgressDialog(payPaymentWifiActivity);
-            authenticationLoadingMessage.show(payPaymentWifiActivity, "Payment Authentication", "Loading..", false, false);
+            authenticationLoadingMessage = ProgressDialog.show(payPaymentWifiActivity, "Payment Authentication", "Loading..", false, true);
         }
 
         @Override
@@ -652,8 +642,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver implements Wi
                     }
                 });
 
-                Thread.sleep(6000);
-                authenticationLoadingMessage.dismiss();
+                Thread.sleep(5000);
 
                 payPaymentWifiActivity = (PayPaymentWifiActivity) context;
                 Log.d(PayPaymentWifiActivity.TAG, "Client Async task is called");
@@ -716,13 +705,19 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver implements Wi
                         @Override
                         public void run() {
                             payPaymentWifiActivity.alertPaymentFailDialog();
+
                         }
                     });
+                    return null;
                 }
 
                 return null;
             } catch (IOException | InterruptedException e) {
-                System.out.println("IOException");
+                payPaymentWifiActivity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        payPaymentWifiActivity.alertPaymentFailByConnectionDialog();
+                    }
+                });
                 return null;
             }finally{
                 //dismiss the progress dialog
@@ -754,6 +749,10 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver implements Wi
             }
         }
 
-
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            authenticationLoadingMessage.dismiss();
+        }
     }
+
 }

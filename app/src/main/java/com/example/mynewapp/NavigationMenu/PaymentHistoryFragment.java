@@ -1,4 +1,4 @@
-package com.example.mynewapp.NavigationMenu.TopUpHistory;
+package com.example.mynewapp.NavigationMenu;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.mynewapp.Payment;
+import com.example.mynewapp.PaymentHistoryAdapter;
 import com.example.mynewapp.R;
-import com.example.mynewapp.TopUp;
-import com.example.mynewapp.TopUpHistoryAdapter;
 import com.example.mynewapp.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,27 +25,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class TopUpHistoryFragment extends Fragment {
+public class PaymentHistoryFragment extends Fragment {
 
-    private TopUpHistoryViewModel topUpHistoryViewModel;
-    private ListView ListViewTopUpHistory;
-    private TopUpHistoryAdapter adapter;
+    private PaymentHistoryViewModel paymentHistoryViewModel;
+    private ListView ListViewPaymentHistory;
+    private PaymentHistoryAdapter adapter;
 
     private FirebaseAuth auth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser user;
     private static final String TABLE_USER = "User";
     private String userID;
-    private ArrayList<TopUp> topUpList;
+    private ArrayList<Payment> paymentList;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        topUpHistoryViewModel =
-                new ViewModelProvider(this).get(TopUpHistoryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_topup_history, container, false);
+        paymentHistoryViewModel =
+                new ViewModelProvider(this).get(PaymentHistoryViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_payment_history, container, false);
 
-        ListViewTopUpHistory = root.findViewById(R.id.list_topup_view);
+        ListViewPaymentHistory = root.findViewById(R.id.list_payment_view);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -55,19 +55,21 @@ public class TopUpHistoryFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
                     User currentUser = documentSnapshot.toObject(User.class);
-                    topUpList = currentUser.getListOfTopUp();
+                    paymentList = currentUser.getListOfPayment();
 
                     //sort the list by payment date and time, with the latest display on top
-                    Collections.reverse(topUpList);
+                    Collections.reverse(paymentList);
 
-                    adapter = new TopUpHistoryAdapter(getContext(), R.layout.list_topup_history, topUpList);
-                    ListViewTopUpHistory.setAdapter(adapter);
+                    adapter = new PaymentHistoryAdapter(getContext(), R.layout.list_payment_history, paymentList);
+                    ListViewPaymentHistory.setAdapter(adapter);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Fail to load top-up history", Toast.LENGTH_SHORT ).show();
+                if(getContext()!=null) {
+                    Toast.makeText(getContext(), "Fail to load payment history", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

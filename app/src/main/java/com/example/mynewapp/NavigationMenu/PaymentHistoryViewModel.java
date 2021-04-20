@@ -1,4 +1,4 @@
-package com.example.mynewapp.NavigationMenu.PaymentHistory;
+package com.example.mynewapp.NavigationMenu;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,7 +10,7 @@ public class PaymentHistoryViewModel extends ViewModel {
 
     public PaymentHistoryViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is payment history fragment");
     }
 
     public LiveData<String> getText() {

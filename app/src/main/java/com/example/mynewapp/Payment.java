@@ -10,7 +10,7 @@ public class Payment {
     private String paymentUserName;
 
     public Payment(){
-
+        // A constructor with no argument is needed so that the firebase fireStore can deserialize the TopUp object correctly
     }
 
     public Payment(double paymentAmount, Date paymentDate, String paymentAction, String paymentUserName){

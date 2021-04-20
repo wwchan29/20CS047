@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFE5DD"
-    tools:context=".NavigationMenu.TopUpHistory.TopUpHistoryFragment">
+    tools:context=".NavigationMenu.TopUpHistoryFragment">
 
     <ListView
         android:id="@+id/list_topup_view"

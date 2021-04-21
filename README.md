@@ -5,7 +5,7 @@ Project Topic: QR-code Payment System with Wi-Fi Direct Proximity Checking
 
 Project Code: 20CS047
 
-WifiPay is an Android mobile application which allow peer-to-peer payment using QR Code with Wi-Fi Direct as additional proxmity checking.
+WifiPay is an Android mobile application which allows peer-to-peer payment using QR Code with Wi-Fi Direct as additional proxmity checking.
 
 ## Development Environment
 

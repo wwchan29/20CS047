@@ -55,7 +55,7 @@ Method (1):
 
 Method (2):
 
-Download the APK file of this application from the below link and install the APK file on the Android devices (Note you may need to go to Settings of the device to enable installation of application from other sources)
+Download the APK file of this application from the below link and install the APK file on the Android devices (Note you may need to go to Settings of the device to enable installation of application from other sources). After installation, you can launch the application [WifiPay]
 https://drive.google.com/file/d/1PNV8K7JWOBkfxBa1gicVSmoXJPL6NkrG/view?usp=sharing
 
 

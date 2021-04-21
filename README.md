@@ -1,6 +1,7 @@
 # 20CS047
 
 Project Topic: QR-code Payment System with Wi-Fi Direct Proximity Checking
+
 Project code: 20CS047
 
 Development Environment:
@@ -15,15 +16,21 @@ Development Environment:
 
 
 
+
+
 Minimum Android version to use this application:
 
 Android 8.0 (API 26) or above
 
 
 
+
+
 Github link:
 
 https://github.com/wwchan29/20CS047
+
+
 
 
 
@@ -43,6 +50,8 @@ Instructions to setup and install the application:
 
 
 
+
+
 Settings and configuration required to use this application:
 
 1. You need to turn on Wi-fi and have an Internet connection when using this application.
@@ -54,6 +63,8 @@ Settings and configuration required to use this application:
 4. Both devices involved in the payment should have an Android version of 8.0 or above.
 
   
+  
+  
 
 Issues regarding the usage and possible solutions:
 
@@ -64,6 +75,8 @@ Solution: Sign out all the users involved in the payment, close and Restart the 
 2. When scanning QR Code, the error message "QR Code has expired.." pops up, even refresh and re-scan the QR Code does not solve this issue.
 
 Solution: Ensure the camera is in focus with the QR code at the moment it is being captured. Also the camera direction should align with QR Code. The above issue happens when the camera is out of focus with the QR code and the QR Code is blurred at the moment it is being scanned, which the information of the QR code cannot be read and decode correctly and leads to the error message of "QR Code has expired".
+
+
 
 
 Devices used in testing and demonstration:

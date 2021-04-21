@@ -1,10 +1,11 @@
-# 20CS047
+# 20CS047 WifiPay
 
+## Project Information
 Project Topic: QR-code Payment System with Wi-Fi Direct Proximity Checking
 
 Project code: 20CS047
 
-Development Environment:
+## Development Environment
 
 1. Android Studio
 
@@ -17,8 +18,7 @@ Development Environment:
 
 
 
-
-Minimum Android version to use this application:
+## Minimum Android version to use this application:
 
 Android 8.0 (API 26) or above
 
@@ -26,7 +26,7 @@ Android 8.0 (API 26) or above
 
 
 
-Github link:
+## Github link:
 
 https://github.com/wwchan29/20CS047
 
@@ -34,7 +34,7 @@ https://github.com/wwchan29/20CS047
 
 
 
-Instructions to setup and install the application:
+## Installation and Setup Guide
 
 1. Download the source code zip files from FYPMS Media / Clone the source code zip files from Github and unzip the files
 
@@ -52,7 +52,7 @@ Instructions to setup and install the application:
 
 
 
-Settings and configuration required to use this application:
+## Settings and configuration required to use this application
 
 1. You need to turn on Wi-fi and have an Internet connection when using this application.
 
@@ -66,7 +66,7 @@ Settings and configuration required to use this application:
   
   
 
-Issues regarding the usage and possible solutions:
+## Issues regarding the usage and possible solutions:
 
 1.If payment authentication keeps loading and does not stop, this could be caused by improper sign out of the account, forced closing and re-opening of application, switch account without signing out the original account or past Wifi-direct connections not clear or disconnect properly. This will lead to an invalid login status on Firebase Authentication and the system could not identify the current user involved in the payment
 
@@ -79,7 +79,7 @@ Solution: Ensure the camera is in focus with the QR code at the moment it is bei
 
 
 
-Devices used in testing and demonstration:
+## Devices used in testing and demonstration:
 
 Samsung Galaxy S9 (Android 9)
 Huawei Nexus 6P (Android 8.1)

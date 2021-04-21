@@ -37,6 +37,8 @@ https://github.com/wwchan29/20CS047
 ## Installation and Setup Guide
 There are two methods to install and setup the application:
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Method (1):
 
 1.Download the source code zip files from FYPMS Media / Clone the source code zip files from Github and unzip the files

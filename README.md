@@ -48,6 +48,9 @@ https://github.com/wwchan29/20CS047
 
 5b. OR go to [Build] -> [Build APK] to generate the APK file of this application -> then transfer the APK file to your Android device -> Install the APK and launch this application
 
+You can also directly download the APK file of this application from the below link and install the APK file on the Android devices
+https://drive.google.com/file/d/1PNV8K7JWOBkfxBa1gicVSmoXJPL6NkrG/view?usp=sharing
+
 
 
 

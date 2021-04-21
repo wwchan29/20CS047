@@ -3,7 +3,7 @@
 ## Project Information
 Project Topic: QR-code Payment System with Wi-Fi Direct Proximity Checking
 
-Project code: 20CS047
+Project Code: 20CS047
 
 ## Development Environment
 
@@ -36,13 +36,13 @@ https://github.com/wwchan29/20CS047
 
 ## Installation and Setup Guide
 
-1. Download the source code zip files from FYPMS Media / Clone the source code zip files from Github and unzip the files
+1.Download the source code zip files from FYPMS Media / Clone the source code zip files from Github and unzip the files
 
-2. Launch Android Studio and Click [Import the project] 
+2.Launch Android Studio and Click [Import the project] 
 
-3. For the directory, go to the unzipped folder, select "MyNewApp" with an Android icon next to it, click [OK].
+3.For the directory, go to the unzipped folder, select "MyNewApp" with an Android icon next to it, click [OK].
 
-4. Go to [File] -> Click [Sync project with Gradle files]
+4.Go to [File] -> Click [Sync project with Gradle files]
 
 5a. You can EITHER connect a real Android device to the computer by USB driver and run the 'app' on the device. (Need to turn on developer mode and allow USB debugging on the device)
 
@@ -68,7 +68,7 @@ https://github.com/wwchan29/20CS047
 
 ## Issues regarding the usage and possible solutions:
 
-1.If payment authentication keeps loading and does not stop, this could be caused by improper sign out of the account, forced closing and re-opening of application, switch account without signing out the original account or past Wifi-direct connections not clear or disconnect properly. This will lead to an invalid login status on Firebase Authentication and the system could not identify the current user involved in the payment
+1.If payment authentication keeps loading and does not stop, this could be caused by improper sign out of the account, forced closing and re-opening of application, switch account without signing out the original account or past Wifi-direct connections not clear or disconnect properly. This will lead to an invalid login status on Firebase Authentication and the system could not identify the current user involved in the payment.
 
 Solution: Sign out all the users involved in the payment, close and Restart the application, login and conduct the payment once again, the payment authentication loading issue should be solved.
 
@@ -80,6 +80,6 @@ Solution: Ensure the camera is in focus with the QR code at the moment it is bei
 
 
 ## Devices used in testing and demonstration:
-
 Samsung Galaxy S9 (Android 9)
+
 Huawei Nexus 6P (Android 8.1)

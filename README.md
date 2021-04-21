@@ -53,7 +53,7 @@ Settings and configuration required to use this application:
 
 4. Both devices involved in the payment should have an Android version of 8.0 or above.
 
-
+  
 
 Issues regarding the usage and possible solutions:
 

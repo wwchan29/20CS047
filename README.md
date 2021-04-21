@@ -54,7 +54,7 @@ Method (1):
 
 Method (2):
 
-You can also directly download the APK file of this application from the below link and install the APK file on the Android devices
+You can also choose to download the APK file of this application from the below link and install the APK file on the Android devices (You may need to go to Settings of the device to enable installation of  application from other source)
 https://drive.google.com/file/d/1PNV8K7JWOBkfxBa1gicVSmoXJPL6NkrG/view?usp=sharing
 
 

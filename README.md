@@ -35,6 +35,9 @@ https://github.com/wwchan29/20CS047
 
 
 ## Installation and Setup Guide
+There are two methods to install and setup the application:
+
+Method (1):
 
 1.Download the source code zip files from FYPMS Media / Clone the source code zip files from Github and unzip the files
 
@@ -46,7 +49,10 @@ https://github.com/wwchan29/20CS047
 
 5a. You can EITHER connect a real Android device to the computer by USB driver and run the 'app' on the device. (Need to turn on developer mode and allow USB debugging on the device)
 
-5b. OR go to [Build] -> [Build APK] to generate the APK file of this application -> then transfer the APK file to your Android device -> Install the APK and launch this application
+5b. OR go to [Build] -> [Build APK] to generate the APK file of this application -> then transfer the APK file to your Android device -> Install the APK and launch this application.
+
+
+Method (2):
 
 You can also directly download the APK file of this application from the below link and install the APK file on the Android devices
 https://drive.google.com/file/d/1PNV8K7JWOBkfxBa1gicVSmoXJPL6NkrG/view?usp=sharing

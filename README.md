@@ -1,6 +1,6 @@
 # 20CS047
 
-QR-code Payment System with Wi-Fi Direct Proximity Checking
+Project Topic: QR-code Payment System with Wi-Fi Direct Proximity Checking
 
 Development Environment: 
 1. Android Studio

@@ -62,7 +62,7 @@ https://drive.google.com/file/d/1PNV8K7JWOBkfxBa1gicVSmoXJPL6NkrG/view?usp=shari
 
 
 
-## Settings and configuration required to use this application
+## Settings and Configurations required to use this application
 
 1. You need to turn on Wi-fi and have an Internet connection when using this application.
 
